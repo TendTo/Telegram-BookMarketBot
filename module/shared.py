@@ -27,6 +27,12 @@ SELL_USAGE = "Utilizzo comando: /vendi <ISBN> <Prezzo>"
 
 START_MESSAGE = "Ciao! Con questo bot puoi mettere in vendita i tuoi libri usati e comprare libri che altri colleghi non utilizzano più. Per maggiori informazioni utilizza il comando /help"
 
+HELP_MESSAGE = "Comandi disponibili:\n\n" \
+    "/vendi <ISBN> <Prezzo>\nAggiungi un libro alla lista degli oggetti in vendita. Inserisci l'ISBN del tuo libro e il prezzo con il quale lo vorresti vendere.\nEs: /vendi 9788891296566 5.50\n\n" \
+    "/cerca <txt>\nCerca un libro all'interno della lista degli oggetti in vendita. La ricerca si baserà su ciò che hai inserito successivamente al comando. All'interno dei risultati della ricerca sono presenti sia le informazioni sui libri sia il contatto della persona che l'ha messo in vendita.\nEs: /cerca modelli matematici\n\n" \
+    "/elimina\nElimina un libro che avevi precedentemente inserito nella lista degli oggetti in vendita. Puoi utilizzare questo comando, ad esempio, quando avrai venduto il tuo libro o se non vorrai più venderlo.\nEs: /elimina\n\n" \
+    "/libri\nElenca i tuoi libri in vendita.\nEs: /libri\n\n" \
+    "/richiedi <ISBN>; <Prezzo>; <Titolo>; <Autori>\nRichiedi l'inserimento manuale di un libro non presente nei database locali e/o online. Un admin controllerà la tua richiesta e aggiungerà manualmente il libro agli altri oggetti in vendita.\nNota bene: ogni campo deve essere separato dal carattere ';' seguito da uno spazio.\nEs: /richiedi 9788864201795; 4.08; One Piece 1; Eiichiro Oda"
 
 # Request
 NEW_REQUEST = "new_request"
