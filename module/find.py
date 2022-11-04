@@ -22,7 +22,7 @@ def app_find(txt: str, conn: sqlite3.Connection, s: str) -> list[tuple]:
     if s == "Books":
         cur.execute("SELECT * FROM Books WHERE ISBN=?", (txt,))
     else:
-        q = "%" + txt + "%"
+        q = f"%{txt}%"
         cur.execute("SELECT rowid, * FROM Market WHERE Title LIKE ? OR ISBN Like ? OR Authors LIKE ?", (q, q, q,))
     rows = cur.fetchall()
     return rows
