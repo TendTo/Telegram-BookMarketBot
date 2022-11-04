@@ -129,3 +129,6 @@ config/*.yaml
 
 # Data
 data/*.db
+
+# Editor
+.vscode/
