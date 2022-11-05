@@ -113,3 +113,5 @@ URL_1 = "https://catalogo.unict.it/search/i?SEARCH="
 URL_2 = "&sortdropdown=-&searchscope=9"
 
 NO_MATCHES = "No matches found"
+
+ISBN_REGEX = r"^\d{10,13}$"

@@ -7,26 +7,35 @@ from module.add_book import add_book
 from module.find import find
 from module.book_in_unict import book_in_unict
 from module.send_results import get_book_info
-from module.shared import PRICE_ERROR,USERNAME_ERROR,ISBN_ERROR,SELL_USAGE,ISBN_PREFIX_1,ISBN_PREFIX_2,ON_SALE_CONFIRM,BOOKS,SEARCHING_ISBN,BOOK_NOT_AVAILABLE
+from module.shared import (
+    PRICE_ERROR,
+    USERNAME_ERROR,
+    ISBN_ERROR,
+    SELL_USAGE,
+    ISBN_PREFIX_1,
+    ISBN_PREFIX_2,
+    ON_SALE_CONFIRM,
+    BOOKS,
+    SEARCHING_ISBN,
+    BOOK_NOT_AVAILABLE,
+    ISBN_REGEX,
+)
 
 
 def _get_isbn_from_website(soup: bs4.BeautifulSoup) -> str:
     idx = len(str(soup.findAll("td")).split("bibInfoData")) - 1
-    isbn = str(soup.findAll("td")) \
-        .split("bibInfoData")[idx] \
-        .split("\n")[1] \
-        .split("<")[0]
-    isbn = isbn.replace('-','')
+    isbn = str(soup.findAll("td")).split("bibInfoData")[idx].split("\n")[1].split("<")[0]
+    isbn = isbn.replace("-", "")
     if len(isbn) > 13:
         p1 = re.search(ISBN_PREFIX_1, isbn)
         if p1 is not None:
             s = p1.span()[0]
-            return isbn[s:s+13]
+            return isbn[s : s + 13]
 
         p2 = re.search(ISBN_PREFIX_2, isbn)
         if p2 is not None:
             s = p2.span()[0]
-            return isbn[s:s+13]
+            return isbn[s : s + 13]
     return isbn
 
 
@@ -43,13 +52,12 @@ def sell(update: Update, context: CallbackContext) -> None:
         return
 
     user_isbn = message.split()[1]
-    if len(user_isbn) != 10 and len(user_isbn) != 13:
+    if re.match(ISBN_REGEX, user_isbn) is None:
         context.bot.send_message(chat_id, ISBN_ERROR)
         return
 
     try:
-        format(float(message.split()[2].replace(",", ".")), ".2f")
-        price = str(format(float(message.split()[2].replace(",", ".")), ".2f"))
+        price = format(float(message.split()[2].replace(",", ".")), ".2f")
         context.bot.send_message(chat_id, SEARCHING_ISBN)
 
         rows = find(context, chat_id, user_isbn, BOOKS)
