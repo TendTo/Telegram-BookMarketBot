@@ -3,6 +3,13 @@ from module.shared import DB_PATH, DB_ERROR, INSERT, DELETE, SELECT
 from telegram.ext import CallbackContext
 from typing import Literal, Optional, Union
 
+def create_connection(db_file: str) -> sqlite3.Connection:
+    conn = None
+    try:
+        conn = sqlite3.connect(db_file)
+    except sqlite3.Error as e:
+        print(str(e))
+    return conn
 
 def connect_and_execute(
     context: CallbackContext,
